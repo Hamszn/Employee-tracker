@@ -83,9 +83,9 @@ function viewAllEmployee() {
   .then(() => mainMenu())
 }
 
-async function addEmployee() {
-  let roles = await db.viewRole();
-  let department = await db.viewDepartment();
+ function addEmployee() {
+  let role = db.viewRole();
+  let department =  db.viewDepartment();
   inquirer.prompt([
     {
       type: 'input',
@@ -103,7 +103,7 @@ async function addEmployee() {
       type: 'list',
       name: 'roleId',
       message: 'Choose employee role:',
-      choices: roles.map(({ id, title }) => ({
+      choices: addRole(({ id, title }) => ({
         name: title,
         value: id,
       })),
@@ -113,7 +113,7 @@ async function addEmployee() {
       type: 'list',
       name: 'departmentId',
       message: 'Choose employee department:',
-      choices: department.map(({ id, name }) => ({
+      choices: addDepartment (({ id, name }) => ({
         name,
         value: id,
       })),
@@ -127,9 +127,9 @@ async function addEmployee() {
     mainMenu();
 }
 
-async function updateEmployee() {
-  let employees = await db.findAllEmployees();
-  let roles = await db.viewRole();
+ function updateEmployee() {
+  let employees =  db.findAllEmployees();
+  let roles =  db.viewRole();
   inquirer.prompt([
     {
       type: 'list',
@@ -145,7 +145,7 @@ async function updateEmployee() {
       type: 'list',
       name: 'roleId',
       message: 'Choose new employee role:',
-      choices: roles.map(({ id, title }) => ({
+      choices: role.map(({ id, title }) => ({
         name: title,
         value: id,
       })),
