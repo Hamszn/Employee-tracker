@@ -84,8 +84,8 @@ function viewAllEmployee() {
 }
 
 async function addEmployee() {
-  let roles = await db.findAllRoles();
-  let department = await db.findAllDepartments();
+  let roles = await db.viewRole();
+  let department = await db.viewDepartment();
   inquirer.prompt([
     {
       type: 'input',
@@ -129,7 +129,7 @@ async function addEmployee() {
 
 async function updateEmployee() {
   let employees = await db.findAllEmployees();
-  let roles = await db.findAllRoles();
+  let roles = await db.viewRole();
   inquirer.prompt([
     {
       type: 'list',
@@ -152,7 +152,7 @@ async function updateEmployee() {
     },
   ])
    .then(({ employeeId, roleId }) => {
-      db.updateEmployeeRole(employeeId, roleId)
+      db.updateEmployee(employeeId, roleId)
        .then(() => console.log('Employee role updated successfully!'))
        .then(() => mainMenu());
     });
@@ -163,8 +163,8 @@ async function updateEmployee() {
 function viewRoles() {
   db.viewRole()
    .then(({ rows }) => {
-      let roles = rows;
-      console.table(roles);
+      let role = rows;
+      console.table(role);
     })
    .then(() => mainMenu());
 }
